@@ -6,10 +6,9 @@ Professional portfolio showcasing cybersecurity, data analytics, and full-stack 
 Visit: https://quinta-thw.github.io/quinta-mellisa-portfolio-2/
 
 ## Last Updated
-February 21, 2026 - Images reorganized and optimized for GitHub Pages
+August 16, 2026 - Full redesign: dark-themed single-page layout with updated work experience, skills, and projects
 
 ## Technologies
 - HTML5
-- CSS3 with modern styling
-- Responsive design
-- Professional animations
+- CSS3 (embedded, dark theme, responsive grid layout)
+- Google Fonts (Inter, IBM Plex Mono)

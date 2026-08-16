@@ -1,211 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Quinta Mellisa Ragalo | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quinta Mellisa | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --surface: #13171d;
+      --surface2: #1a1f28;
+      --border: #232b36;
+      --accent: #4fc3f7;
+      --accent2: #7c3aed;
+      --green: #34d399;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(13,15,18,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before { content: '$ '; color: var(--muted); }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .role-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .hero-desc {
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      padding: 0.6rem 1.25rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0f12;
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: #81d4fa; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* === SECTIONS === */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* === EXPERIENCE === */
+    .exp-list { display: flex; flex-direction: column; gap: 2rem; }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.5rem; bottom: 1.5rem;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      border-radius: 0 2px 2px 0;
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+      padding-left: 0.5rem;
+    }
+    .exp-role {
+      font-weight: 600;
+      font-size: 0.97rem;
+    }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .exp-company {
+      font-size: 0.82rem;
+      color: var(--accent);
+      padding-left: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .exp-bullets {
+      list-style: none;
+      padding-left: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .exp-bullets li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 0.7rem;
+      top: 0.15em;
+    }
+    .exp-link {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+    .exp-link:hover { border-color: var(--accent); background: var(--surface2); }
+    .current-badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      background: rgba(52,211,153,0.12);
+      color: var(--green);
+      border: 1px solid rgba(52,211,153,0.3);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      letter-spacing: 0.06em;
+    }
+
+    /* === SKILLS === */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+
+    /* === PROJECTS === */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); }
+    .project-name {
+      font-weight: 600;
+      font-size: 0.97rem;
+    }
+    .project-stack {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent2);
+      letter-spacing: 0.04em;
+    }
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .project-live {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .project-live::before { content: '↗'; font-size: 0.8rem; }
+    .project-live:hover { text-decoration: underline; }
+    .hackathon-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.3);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    /* === CERTIFICATIONS === */
+    .cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .cert-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cert-name { font-size: 0.9rem; font-weight: 500; }
+    .cert-issuer { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .cert-badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      background: rgba(79,195,247,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79,195,247,0.25);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .cert-badge.distinction {
+      background: rgba(52,211,153,0.1);
+      color: var(--green);
+      border-color: rgba(52,211,153,0.3);
+    }
+
+    /* === CONTACT === */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .contact-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .contact-item:hover { border-color: var(--accent); }
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .contact-value {
+      font-size: 0.85rem;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* === MOBILE === */
+    @media (max-width: 600px) {
+      nav { padding: 0.85rem 1rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 3.5rem 1rem; }
+      .hero { padding: 5rem 1rem 3rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ================= HERO SECTION ================= -->
-<header class="hero">
-    <img src="images/profile.png" alt="Quinta Mellisa Ragalo" class="profile-pic">
-    <h1>Quinta Mellisa Ragalo</h1>
-    <p class="tagline">
-        Information Systems Technology Student | Cybersecurity & Data Enthusiast |
-        Full-Stack Developer | IT Support & Digital Innovation Professional
-    </p>
-</header>
-
-<!-- ================= NAVIGATION ================= -->
 <nav>
-    <a href="#resume">Resume</a>
-    <a href="#projects">Projects</a>
-    <a href="#labs">Lab Challenges</a>
-    <a href="#contact">Contact</a>
+  <span class="nav-logo">quinta_mellisa</span>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- ================= RESUME SECTION ================= -->
-<section id="resume">
-    <h2>Resume</h2>
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">whoami</p>
+  <h1>Quinta<br/><span>Mellisa.</span></h1>
+  <div class="hero-roles">
+    <span class="role-tag">Full-Stack Developer</span>
+    <span class="role-tag">Security Engineer (Red &amp; Blue Team)</span>
+    <span class="role-tag">DevSecOps</span>
+    <span class="role-tag">Cloud · AWS</span>
+  </div>
+  <p class="hero-desc">
+    Information Systems Technology student at USIU-Africa (Forensic Technology &amp; Cybersecurity)
+    with three years of hands-on experience building and securing production web applications.
+    I develop full-stack systems with React, Django, and Flask, run red and blue team exercises,
+    and embed security into CI/CD pipelines end to end.
+  </p>
+  <div class="hero-links">
+    <a href="https://github.com/quinta-thw" class="btn btn-primary" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:qmellisa06@gmail.com" class="btn btn-outline">Email me</a>
+    <a href="https://www.linkedin.com/in/quinta-mellisa-93a384310/" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</div>
 
-    <div class="content-block">
-        <h3>Education</h3>
-        <p><strong>Bachelor of Information Systems Technology</strong><br>
-        United States International University – Africa</p>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// work history</p>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-role">Security Engineer (Red Team &amp; Blue Team) / Full-Stack &amp; DevSecOps Engineer</span>
+        <span style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+          <span class="current-badge">CURRENT</span>
+          <span class="exp-date">Feb 2026 – Present</span>
+        </span>
+      </div>
+      <div class="exp-company">Sazara Limited · Nairobi, Kenya</div>
+      <ul class="exp-bullets">
+        <li>Lead blue team operations across production platforms — security monitoring, log analysis, alert triage, incident response, and system hardening.</li>
+        <li>Run red team exercises against web applications and APIs, identifying and reporting 20+ vulnerabilities mapped to the OWASP Top 10.</li>
+        <li>Integrate automated dependency scanning, secrets management, and security gates into CI/CD pipelines (GitHub Actions).</li>
+        <li>Containerise services with Docker, applying image hardening and least-privilege container configuration.</li>
+        <li>Build and maintain the Sazara POS platform full stack — React interfaces, backend services, REST APIs, and database queries — supporting 500+ monthly active users.</li>
+        <li>Manage cloud deployments, custom domain routing, and SSL/TLS provisioning for production services.</li>
+      </ul>
+      <a href="https://pos.sazara.co.ke" class="exp-link" target="_blank" rel="noopener">→ pos.sazara.co.ke</a>
     </div>
 
-    <div class="content-block">
-        <h3>Work Experience</h3>
-
-        <div class="card">
-            <h4>IT Support Intern – Pro-Mart East Africa</h4>
-            <p>Provided technical support, diagnosed hardware and software issues,
-            assisted in system maintenance, and improved operational efficiency.</p>
-        </div>
-
-        <div class="card">
-            <h4>Digital Marketing Intern – Belovast Energy</h4>
-            <p>Managed digital campaigns, social media engagement, and analytics
-            to enhance brand visibility and customer reach.</p>
-        </div>
-
-        <div class="card">
-            <h4>Website Developer – Belovast Energy</h4>
-            <p>Designed and developed a responsive energy marketing website
-            applying modern UI/UX principles and performance optimization.</p>
-        </div>
-
-        <div class="card">
-            <h4>Peer Tutor – USIU-Africa</h4>
-            <p>Provided academic mentorship in computing and mathematics,
-            supporting collaborative and student-centered learning.</p>
-        </div>
-
-        <div class="card">
-            <h4>Volunteer – St. Dorothy Children’s Home</h4>
-            <p>Mentored children, supported rehabilitation activities,
-            and strengthened leadership and teamwork skills.</p>
-        </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-role">IT &amp; Web Support Intern</span>
+        <span class="exp-date">Aug 2025 – Jan 2026</span>
+      </div>
+      <div class="exp-company">Belovast Energy Limited · Nairobi, Kenya</div>
+      <ul class="exp-bullets">
+        <li>Delivered first- and second-line technical support to 20+ staff, resolving 200+ hardware, software, network, and user access tickets.</li>
+        <li>Rebuilt and maintained the corporate website using HTML, CSS, JavaScript, and CMS tools, and deployed it to production.</li>
+        <li>Registered and configured the company domain and DNS records through HOST Africa, including SSL certificate setup and email routing.</li>
+      </ul>
     </div>
 
-    <div class="content-block">
-        <h3>Certifications</h3>
-        <ul>
-            <li>IBM SkillsBuild – Cybersecurity Fundamentals</li>
-            <li>CyberShujaa – Data & AI</li>
-            <li>She Code Africa – Frontend Development</li>
-            <li>MSME Innovator & Entrepreneur Certification</li>
-            <li>International Women in STEM Mentorship – EABL</li>
-        </ul>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-role">IT Support Intern</span>
+        <span class="exp-date">Feb 2025 – Jul 2025</span>
+      </div>
+      <div class="exp-company">Weru TV · Kenya</div>
+      <ul class="exp-bullets">
+        <li>Supported broadcast and office IT operations for 30+ staff — workstation setup, software installation, network connectivity, and user account administration.</li>
+        <li>Maintained digital and web content for the station and supported routine data backup and recovery procedures.</li>
+        <li>Applied endpoint security practices including patch management, antivirus deployment, and access control.</li>
+      </ul>
     </div>
 
-    <div class="content-block">
-        <h3>Technical Skills</h3>
-
-        <h4>Programming & Development</h4>
-        <ul>
-            <li>React Native</li>
-            <li>Node.js & Express</li>
-            <li>Flask</li>
-            <li>PostgreSQL</li>
-            <li>Git & GitHub</li>
-        </ul>
-
-        <h4>Cybersecurity</h4>
-        <ul>
-            <li>Digital Forensics</li>
-            <li>Vulnerability Assessment</li>
-            <li>System Troubleshooting</li>
-        </ul>
-
-        <h4>Data & Analytics</h4>
-        <ul>
-            <li>Power BI</li>
-            <li>Tableau</li>
-            <li>Microsoft Excel</li>
-        </ul>
-
-        <h4>Professional Tools</h4>
-        <ul>
-            <li>PowerPoint</li>
-            <li>Canva</li>
-        </ul>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-role">Frontend &amp; Website Developer</span>
+        <span class="exp-date">Jun 2023 – Jan 2025</span>
+      </div>
+      <div class="exp-company">Pro-Mart East Africa · Nairobi, Kenya</div>
+      <ul class="exp-bullets">
+        <li>Developed, updated, and formatted 15+ responsive web pages using HTML, CSS, JavaScript, and CMS platforms, applying SEO best practices.</li>
+        <li>Deployed the website to production on Render and configured the custom domain (Tamshi), including DNS records and SSL certificates.</li>
+        <li>Optimised images and assets in collaboration with the marketing team, reducing page load time by ~30%.</li>
+      </ul>
+      <a href="https://pro-mart.co.ke" class="exp-link" target="_blank" rel="noopener">→ pro-mart.co.ke</a>
     </div>
+
+  </div>
 </section>
 
-<!-- ================= PROJECTS SECTION ================= -->
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">// what I work with</p>
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+
+    <div class="skill-group">
+      <div class="skill-group-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Responsive UI</span>
+        <span class="skill-tag">API Integration</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Django</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">REST API Design</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Authentication</span>
+        <span class="skill-tag">MVVM</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud &amp; DevOps</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS EC2</span>
+        <span class="skill-tag">AWS S3</span>
+        <span class="skill-tag">AWS IAM</span>
+        <span class="skill-tag">Route 53</span>
+        <span class="skill-tag">RDS</span>
+        <span class="skill-tag">CloudWatch</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Vercel</span>
+        <span class="skill-tag">Render</span>
+        <span class="skill-tag">Railway</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Cybersecurity — Blue Team</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Security Monitoring</span>
+        <span class="skill-tag">Incident Response</span>
+        <span class="skill-tag">Log Analysis</span>
+        <span class="skill-tag">System Hardening</span>
+        <span class="skill-tag">IAM</span>
+        <span class="skill-tag">Digital Forensics</span>
+        <span class="skill-tag">Wireshark</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Cybersecurity — Red Team</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Penetration Testing</span>
+        <span class="skill-tag">OWASP Top 10</span>
+        <span class="skill-tag">Vulnerability Assessment</span>
+        <span class="skill-tag">Burp Suite</span>
+        <span class="skill-tag">Nmap</span>
+        <span class="skill-tag">Reconnaissance</span>
+        <span class="skill-tag">Autopsy</span>
+        <span class="skill-tag">FTK Imager</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Data &amp; AI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Google Colab</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">Data Visualisation</span>
+        <span class="skill-tag">ML Fundamentals</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Other</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git &amp; GitHub</span>
+        <span class="skill-tag">Linux Admin</span>
+        <span class="skill-tag">DNS Management</span>
+        <span class="skill-tag">SSL/TLS</span>
+        <span class="skill-tag">Secure SDLC</span>
+        <span class="skill-tag">Agile</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
 <section id="projects">
-    <h2>Projects</h2>
+  <p class="section-label">// things I've built</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
 
-    <div class="card">
-        <h3>Ticketing System</h3>
-        <p>Developed a web-based support ticket management system featuring
-        authentication, ticket tracking, status updates, and role-based access control.</p>
+    <div class="project-card">
+      <div class="project-name">Sazara POS</div>
+      <div class="project-stack">React · Django · REST API · PostgreSQL · Docker · AWS</div>
+      <p class="project-desc">Full-stack point-of-sale and inventory management platform serving 500+ monthly active users across Kenyan businesses. Built and maintained end to end — frontend, backend, APIs, and cloud infrastructure.</p>
+      <div class="project-footer">
+        <a href="https://pos.sazara.co.ke" class="project-live" target="_blank" rel="noopener">pos.sazara.co.ke</a>
+      </div>
     </div>
 
-    <div class="card">
-        <h3>AgriTech Application</h3>
-        <p>Built a technology-driven agricultural platform for tracking farm data,
-        monitoring productivity, and generating analytical dashboards.</p>
+    <div class="project-card">
+      <div class="project-name">TrackSave</div>
+      <div class="project-stack">React · Flask · PostgreSQL · Vercel · Render</div>
+      <p class="project-desc">Household savings and budgeting application with 50+ users. Allows households to record income, categorise expenses, and track progress against savings goals. Secure authentication with hashed credentials and protected routes.</p>
+      <div class="project-footer">
+        <a href="https://tracksave.vercel.app" class="project-live" target="_blank" rel="noopener">tracksave.vercel.app</a>
+      </div>
     </div>
 
-    <div class="card">
-        <h3>Energy Marketing Website – Belovast Energy</h3>
-        <p>Created a responsive and SEO-optimized marketing website
-        to improve digital presence and customer engagement.</p>
+    <div class="project-card">
+      <div class="project-name">QueueFlow</div>
+      <div class="project-stack">React · Java (Android) · REST API · Docker · Vercel · Railway</div>
+      <p class="project-desc">Digital ticketing and queue management system replacing physical queues with real-time ticket issuing and service-counter tracking. Includes a companion Android app built in Java using MVVM architecture as a capstone project.</p>
+      <div class="project-footer">
+        <a href="https://queueflow-psi.vercel.app" class="project-live" target="_blank" rel="noopener">queueflow-psi.vercel.app</a>
+      </div>
     </div>
+
+    <div class="project-card">
+      <div class="project-name">JCMTC Student Portal</div>
+      <div class="project-stack">Full-Stack Web · DNS · SSL · Role-Based Auth</div>
+      <p class="project-desc">School management system supporting student records, admissions, and academic administration for John Charles Medical Training College. Configured the production .ac.ke domain, DNS, and SSL, hardened with role-based authentication.</p>
+      <div class="project-footer">
+        <a href="https://jcmtcportal.ac.ke" class="project-live" target="_blank" rel="noopener">jcmtcportal.ac.ke</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">Nexus — Interledger Payments Plugin</div>
+      <div class="project-stack">Interledger Protocol · Web</div>
+      <p class="project-desc">Payments plugin built on the Interledger Protocol at a hackathon. Placed 2nd and 4th across two competitive hackathon rounds.</p>
+      <div class="project-footer">
+        <span class="hackathon-tag">🏆 2nd &amp; 4th place</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">Smart Library Management System</div>
+      <div class="project-stack">Java · SQL</div>
+      <p class="project-desc">Library catalogue and lending system covering member records, borrowing workflows, and inventory tracking. Built as a structured Java application with SQL persistence.</p>
+      <div class="project-footer"></div>
+    </div>
+
+  </div>
 </section>
 
-<!-- ================= LAB CHALLENGES SECTION ================= -->
-<section id="labs">
-    <h2>Lab Challenges</h2>
-
-    <div class="card">
-        <h3>Power BI – Hotel Management Dashboard</h3>
-        <p><strong>Focus:</strong> Business Intelligence & KPI Development</p>
-        <p>Developed interactive dashboards using DAX calculations,
-        data transformation, and cloud publishing.</p>
-        <img src="images/powerbi-screenshot.png" alt="Power BI Screenshot">
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-label">// credentials</p>
+  <h2 class="section-title">Certifications</h2>
+  <div class="cert-list">
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Data Science &amp; Artificial Intelligence</div>
+        <div class="cert-issuer">Cybershujaa Program</div>
+      </div>
+      <span class="cert-badge distinction">Distinction · 2026</span>
     </div>
-
-    <div class="card">
-        <h3>Tableau – Advanced Data Visualization</h3>
-        <p><strong>Focus:</strong> Data Storytelling</p>
-        <p>Designed powerful visual dashboards and published work to Tableau Public.</p>
-        <img src="images/tableau-screenshot.png" alt="Tableau Screenshot">
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Cybersecurity Fundamentals</div>
+        <div class="cert-issuer">IBM Cybersecurity Certification</div>
+      </div>
+      <span class="cert-badge">Certified</span>
     </div>
-
-    <div class="card">
-        <h3>Canva – Digital Marketing Design</h3>
-        <p><strong>Focus:</strong> Branding & Visual Communication</p>
-        <p>Designed professional marketing materials and branded visual content.</p>
-        <img src="images/canva-screenshot.png" alt="Canva Screenshot">
-    </div>
-
-    <div class="card">
-        <h3>Vulnerability Assessment – Kali Linux</h3>
-        <p><strong>Focus:</strong> Ethical Hacking & Risk Identification</p>
-        <p>Conducted controlled security scans, identified vulnerabilities,
-        and analyzed potential risks in a lab environment.</p>
-        <img src="images/kali-screenshot.png" alt="Kali Screenshot">
-    </div>
-
-    <div class="card">
-        <h3>Digital Forensics Investigation</h3>
-        <p><strong>Focus:</strong> Evidence Analysis & Incident Response</p>
-        <p>Performed forensic examination of digital evidence,
-        analyzed system logs, and documented findings following
-        proper evidence handling procedures.</p>
-        <img src="images/forensics-screenshot.png" alt="Digital Forensics Screenshot">
-    </div>
+  </div>
 </section>
 
-<!-- ================= CONTACT SECTION ================= -->
+<!-- CONTACT -->
 <section id="contact">
-    <h2>Contact</h2>
-
-    <p><strong>Email:</strong>
-        <a href="mailto:qmellisa06@gmail.com">qmellisa06@gmail.com</a>
-    </p>
-
-    <p><strong>LinkedIn:</strong>
-        <a href="https://www.linkedin.com/in/quinta-mellisa-93a384310/" target="_blank">
-            linkedin.com/in/quinta-mellisa-93a384310
-        </a>
-    </p>
-
-    <p><strong>GitHub:</strong>
-        <a href="https://github.com/quinta-thw" target="_blank">
-            github.com/quinta-thw
-        </a>
-    </p>
+  <p class="section-label">// get in touch</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <a href="mailto:qmellisa06@gmail.com" class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">qmellisa06@gmail.com</span>
+    </a>
+    <a href="https://github.com/quinta-thw" class="contact-item" target="_blank" rel="noopener">
+      <span class="contact-label">GitHub</span>
+      <span class="contact-value">github.com/quinta-thw</span>
+    </a>
+    <a href="https://www.linkedin.com/in/quinta-mellisa-93a384310/" class="contact-item" target="_blank" rel="noopener">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value">quinta-mellisa-93a384310</span>
+    </a>
+    <a href="tel:+254716529675" class="contact-item">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">+254 716 529 675</span>
+    </a>
+  </div>
 </section>
 
-<footer>
-    <p>© 2026 Quinta Mellisa Ragalo</p>
-</footer>
+<footer>© 2026 Quinta Mellisa &nbsp;·&nbsp; Nairobi, Kenya</footer>
 
 </body>
 </html>
